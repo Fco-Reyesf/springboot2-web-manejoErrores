@@ -20,4 +20,13 @@ public class ErrorHandlerControler {
 		return "error/aritmetica";
 	}
 	
+	@ExceptionHandler(NumberFormatException.class)
+	public String numberFormatException(NumberFormatException ex, Model model) {
+		model.addAttribute("error", "error de formato del numero");
+		model.addAttribute("message", ex.getMessage());
+		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+		model.addAttribute("timestamp", new Date());
+		return "error/error-formato";
+	}
+	
 }
