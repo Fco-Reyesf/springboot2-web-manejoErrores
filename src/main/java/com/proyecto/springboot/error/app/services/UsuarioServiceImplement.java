@@ -2,6 +2,7 @@ package com.proyecto.springboot.error.app.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,13 @@ public class UsuarioServiceImplement implements UsuarioServiceInterface {
 			}
 		}
 		return resultado;
+	}
+
+	@Override
+	public Optional<Usuario> buscarPorIdOptional(Integer id) {
+		// TODO Auto-generated method stub
+		Usuario usuario = this.buscarPorId(id);
+		return Optional.ofNullable(usuario);
 	}
 
 }

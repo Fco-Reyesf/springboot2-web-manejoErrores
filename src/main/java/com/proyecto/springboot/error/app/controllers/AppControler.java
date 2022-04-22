@@ -25,10 +25,17 @@ public class AppControler {
 	
 	@GetMapping("/ver/{id}")
 	public String ver(@PathVariable Integer id  ,Model model) {
+		/*
+		 * primer metodo de manejo de errores personalizados
 		Usuario usuario = usuarioServiceInterfaz.buscarPorId(id);
 		if (usuario == null) {
 			throw new UsuarioInexistente(id.toString());
 		}
+		*/
+		
+		// segunda forma de manejar errores personalizados, utilizando optional de java 8
+		Usuario usuario = usuarioServiceInterfaz.buscarPorIdOptional(id).orElseThrow(() -> new UsuarioInexistente(id.toString()));
+		
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("titulo", "Detalle del usuario: ".concat(usuario.getNombre()));
 		return "ver";
