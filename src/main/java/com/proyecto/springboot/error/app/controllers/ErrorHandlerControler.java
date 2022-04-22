@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.proyecto.springboot.error.app.errors.UsuarioInexistente;
+
 
 @ControllerAdvice
 public class ErrorHandlerControler {
@@ -23,6 +25,15 @@ public class ErrorHandlerControler {
 	@ExceptionHandler(NumberFormatException.class)
 	public String numberFormatException(NumberFormatException ex, Model model) {
 		model.addAttribute("error", "error de formato del numero");
+		model.addAttribute("message", ex.getMessage());
+		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+		model.addAttribute("timestamp", new Date());
+		return "error/error-formato";
+	}
+	
+	@ExceptionHandler(UsuarioInexistente.class)
+	public String usuarioInexistente(UsuarioInexistente ex, Model model) {
+		model.addAttribute("error", "error al ingresar al usuario");
 		model.addAttribute("message", ex.getMessage());
 		model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
 		model.addAttribute("timestamp", new Date());
